@@ -1,65 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://storage.teleservices.io/Teleservice_d2ff0b913678.png">
-    <title>Gray Hat</title>
-    <link rel="icon" hreft="https://i.imgur.com/J8uWvPu.png"/>
-    <style>
-        /* Reset and Base Styles */
-        * {
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta property="og:image" content="https://storage.teleservices.io/Teleservice_d2ff0b913678.png" />
+    <title>Gray Hat - Retro Edition</title>
+    <link rel="shortcut icon" href="https://i.imgur.com/J8uWvPu.png" type="image/x-icon"/>
+    <style type="text/css">
+        /* Reset estilo antiguo */
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            transition: all 0.3s ease;
         }
-
+        
+        body, div, p, h1, h2, h3, input, button {
+            margin: 0;
+            padding: 0;
+            font-family: "MS Sans Serif", Tahoma, Verdana, Arial, sans-serif;
+        }
+        
         body {
-            overflow-x: hidden;
-            background-color: #000;
-            color: #fff;
+            background-color: #008080;
+            color: #000000;
+            font-size: 12px;
+            line-height: 1.4;
+            background-image: url('https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/bg/1.2.png');
+            background-repeat: repeat;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
         }
-
-        /* Loading Screen */
+        
+        /* Barra de carga estilo XP */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: #3A6EA5;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #000;
             z-index: 1000;
         }
-
+        
         .loading-screen img {
-            max-width: 80%;
-            max-height: 70%;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
+            border: 2px solid #FFFFFF;
+            margin-bottom: 20px;
         }
-
+        
         .loading-bar {
-            width: 80%;
-            height: 10px;
-            background-color: #333;
-            border-radius: 5px;
-            overflow: hidden;
+            width: 300px;
+            height: 20px;
+            border: 2px solid #000000;
+            background-color: #FFFFFF;
+            position: relative;
         }
-
+        
         .loading-progress {
             height: 100%;
-            width: 0;
-            background-color: #ff0000;
-            border-radius: 5px;
+            width: 0%;
+            background-color: #008000;
+            background-image: url('https://web.archive.org/web/20120130135610im_/http://s.4cdn.org/image/bg/bar.png');
+            background-repeat: repeat-x;
         }
-
-        /* Code Verification */
+        
+        /* Pantalla de verificación estilo antiguo */
         .verification-screen {
             display: none;
             position: fixed;
@@ -67,223 +79,249 @@
             left: 0;
             width: 100%;
             height: 100%;
-            flex-direction: column;
+            background-color: #D4D0C8;
+            z-index: 999;
+            font-family: "MS Sans Serif", Tahoma, sans-serif;
             justify-content: center;
             align-items: center;
-            background-color: #000;
-            z-index: 999;
         }
-
+        
         .verification-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 
+                inset 1px 1px 0px #000000,
+                inset -1px -1px 0px #DFDFDF,
+                2px 2px 3px rgba(0,0,0,0.3);
         }
-
+        
         .verification-form h2 {
-            color: #fff;
-            font-size: 24px;
-            text-shadow: 0 0 10px #ff0000;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 15px;
+            text-align: center;
         }
-
+        
         .code-input {
-            padding: 15px;
-            font-size: 18px;
-            border: 2px solid #ff0000;
-            background-color: #111;
-            color: #fff;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .confirm-btn {
-            padding: 12px 30px;
-            background-color: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            width: 100%;
+            padding: 5px;
+            border: 2px solid;
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
+            background-color: #FFFFFF;
+            font-family: "Fixedsys", "Courier New", monospace;
             font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .confirm-btn {
+            width: 100%;
+            padding: 5px;
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            font-weight: bold;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-
-        .confirm-btn:hover {
-            background-color: #cc0000;
-            transform: scale(1.05);
+        
+        .confirm-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
         }
-
+        
         .error-message {
-            color: #ff0000;
-            font-size: 18px;
+            color: #FF0000;
+            font-size: 12px;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
             display: none;
+            font-weight: bold;
         }
-
-        /* Dashboard */
+        
+        /* Dashboard estilo antiguo */
         .dashboard {
             display: none;
-            padding: 20px;
-            background-color: #000;
-            min-height: 100vh;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #ff0000;
-            margin-bottom: 30px;
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .title h1 {
-            font-size: 36px;
-            color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .title img {
-            width: 50px;
-            height: 50px;
-            filter: drop-shadow(0 0 5px #ff0000);
-        }
-
-        .selector {
-            padding: 10px 15px;
-            background-color: #111;
-            color: #fff;
-            border: 1px solid #ff0000;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background-color: #111;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
-            transform: perspective(1000px) rotateY(0deg);
-            transition: transform 0.5s, box-shadow 0.5s;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: perspective(1000px) rotateY(10deg);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0));
-            pointer-events: none;
+            background-color: #008080;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: auto;
         }
-
+        
+        .window {
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            width: 95%;
+            max-width: 900px;
+            margin: 20px auto;
+            box-shadow: 
+                inset 1px 1px 0px #000000,
+                inset -1px -1px 0px #DFDFDF,
+                4px 4px 8px rgba(0,0,0,0.4);
+        }
+        
+        .header {
+            background-color: #000080;
+            color: #FFFFFF;
+            padding: 5px 10px;
+            margin-bottom: 0;
+            border-bottom: 2px solid #D4D0C8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .title h1 {
+            font-size: 14px;
+            color: #FFFFFF;
+            text-shadow: 1px 1px 1px #000000;
+            font-weight: bold;
+        }
+        
+        .title img {
+            margin-right: 10px;
+            border: 1px solid #000000;
+        }
+        
+        .window-controls {
+            display: flex;
+        }
+        
+        .window-btn {
+            width: 18px;
+            height: 18px;
+            margin-left: 3px;
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            font-family: "Marlett", "Arial", sans-serif;
+            font-size: 10px;
+            text-align: center;
+            line-height: 14px;
+            cursor: pointer;
+        }
+        
+        .window-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
+        }
+        
+        .window-content {
+            padding: 15px;
+        }
+        
+        .selector {
+            padding: 3px;
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
+            font-family: Tahoma, sans-serif;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .card {
+            background-color: #FFFFFF;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            padding: 10px;
+        }
+        
         .card-img {
             width: 100%;
-            height: 200px;
+            height: 150px;
             object-fit: cover;
-            border-bottom: 1px solid #ff0000;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 20px;
+            border: 1px solid #999999;
             margin-bottom: 10px;
-            color: #ff0000;
         }
-
+        
+        .card-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 5px;
+        }
+        
         .card-desc {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 20px;
+            font-size: 11px;
+            color: #000000;
+            margin-bottom: 10px;
         }
-
+        
         .card-btn {
-            padding: 8px 20px;
-            background-color: #ff0000;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            padding: 3px 8px;
+            background-color: #D4D0C8;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 11px;
         }
-
-        .card-btn:hover {
-            background-color: #cc0000;
+        
+        .card-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
         }
-
+        
         .footer {
             text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            border-top: 1px solid #ff0000;
-            color: #666;
-            font-size: 14px;
+            padding: 10px;
+            margin-top: 20px;
+            border-top: 1px solid #808080;
+            color: #000000;
+            font-size: 11px;
         }
-
-        /* Animations */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        .shake {
-            animation: shake 0.5s;
-        }
-
-        /* Blood Drips */
-        .blood-drip {
-            position: absolute;
-            width: 2px;
-            background-color: #ff0000;
-            z-index: -1;
-        }
-
-        /* Cursor Effect */
-        .cursor-effect {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(255, 0, 0, 0.5);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            mix-blend-mode: screen;
-        }
-
-        /* Access Denied */
+        
+        /* Acceso denegado estilo BSOD */
         .access-denied {
             display: none;
             position: fixed;
@@ -291,85 +329,220 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: white;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            background-color: #00007F;
+            color: #FFFFFF;
+            font-family: "Lucida Console", Monaco, monospace;
             z-index: 1001;
+            padding: 20px;
+            box-sizing: border-box;
+            white-space: pre;
         }
-
+        
         .access-denied h1 {
-            color: #ff0000;
-            font-size: 48px;
+            color: #FFFFFF;
+            font-size: 24px;
             margin-bottom: 20px;
         }
-
+        
         .access-denied p {
-            color: #000;
-            font-size: 24px;
-            text-align: center;
-            max-width: 80%;
+            color: #FFFFFF;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Efecto de cursor antiguo */
+        .cursor-effect {
+            position: fixed;
+            width: 32px;
+            height: 32px;
+            background-image: url('https://web.archive.org/web/20090829031121/http://geocities.com/EnchantedForest/Cottage/7352/ani-cursor.gif');
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* Efectos de texto parpadeante para error */
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        /* Barra de tareas estilo Windows */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #C0C0C0;
+            border-top: 2px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .start-btn {
+            height: 100%;
+            padding: 0 10px;
+            background-color: #C0C0C0;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .start-btn:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
+        }
+        
+        .start-btn img {
+            margin-right: 5px;
+        }
+        
+        .taskbar-time {
+            margin-left: auto;
+            padding: 0 10px;
+            height: 100%;
+            background-color: #C0C0C0;
+            border: 2px solid;
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: #FFFFFF;
+            border-bottom-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            font-family: "MS Sans Serif", Tahoma, sans-serif;
+            font-size: 11px;
+        }
+        
+        /* Scrollbar estilo antiguo */
+        ::-webkit-scrollbar {
+            width: 16px;
+            height: 16px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background-color: #C0C0C0;
+            border: 2px solid;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background-color: #808080;
+            border: 2px solid;
+            border-top-color: #DFDFDF;
+            border-left-color: #DFDFDF;
+            border-right-color: #404040;
+            border-bottom-color: #404040;
+        }
+        
+        /* Efecto hover en botones */
+        button:hover {
+            background-color: #3A6EA5 !important;
+            color: #FFFFFF !important;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Pantalla de carga estilo XP -->
     <div class="loading-screen">
-        <img src="https://storage.teleservices.io/Teleservice_e44718d72e8e.png" alt="Loading Image">
+        <img src="https://storage.teleservices.io/Teleservice_e44718d72e8e.png" alt="Loading Image" width="300" height="200" />
         <div class="loading-bar">
             <div class="loading-progress"></div>
         </div>
     </div>
 
-    <!-- Verification Screen -->
+    <!-- Pantalla de verificación estilo Windows 98 -->
     <div class="verification-screen">
         <div class="verification-form">
             <h2>ENTER YOUR CONFIRMATION CODE</h2>
-            <input type="text" class="code-input" placeholder="XXXXX" maxlength="5">
+            <input type="text" class="code-input" placeholder="XXXXX" maxlength="5" />
             <button class="confirm-btn">CONFIRM</button>
-            <p class="error-message">ACCESS DENIED. YOU ARE NOT AUTHORIZED.</p>
+            <p class="error-message blink">ACCESS DENIED. YOU ARE NOT AUTHORIZED.</p>
         </div>
     </div>
 
-    <!-- Access Denied Screen -->
+    <!-- Pantalla de acceso denegado estilo BSOD -->
     <div class="access-denied">
-        <h1>ACCESS DENIED</h1>
-        <p>You are not authorized to access this content. Your attempt has been logged.</p>
+        <h1>A problem has been detected and this page has been shut down</h1>
+        <p>
+*** ACCESS DENIED ***
+
+Unauthorized access attempt detected. Your IP has been logged.
+
+Technical information:
+
+*** STOP: 0x0000000A (0x00000000, 0x00000002, 0x00000001, 0x804E4D8C)
+
+Contact your system administrator for more information.
+        </p>
     </div>
 
-    <!-- Dashboard -->
+    <!-- Dashboard estilo antiguo -->
     <div class="dashboard">
-        <div class="header">
-            <div class="title">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNNDQ4IDBINjRDMjguNyAwIDAgMjguNyAwIDY0djM4NGMwIDM1LjMgMjguNyA2NCA2NCA2NGgzODRjMzUuMyAwIDY0LTI4LjcgNjQtNjRWNjRjMC0zNS4zLTI4LjctNjQtNjQtNjR6TTIzMiAzODRjLTg4LjQgMC0xNjAtNzEuNi0xNjAtMTYwczcxLjYtMTYwIDE2MC0xNjAgMTYwIDcxLjYgMTYwIDE2MC03MS42IDE2MC0xNjAgMTYwem0wLTI4OGMtNzAuNyAwLTEyOCA1Ny4zLTEyOCAxMjhzNTcuMyAxMjggMTI4IDEyOCAxMjgtNTcuMyAxMjgtMTI4LTU3LjMtMTI4LTEyOC0xMjh6Ii8+PC9zdmc+" alt="Logo">
-                <h1>GRAY HAT</h1>
+        <div class="window">
+            <div class="header">
+                <div class="title">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNNDQ4IDBINjRDMjguNyAwIDAgMjguNyAwIDY0djM4NGMwIDM1LjMgMjguNyA2NCA2NCA2NGgzODRjMzUuMyAwIDY0LTI4LjcgNjQtNjRWNjRjMC0zNS4zLTI4LjctNjQtNjQtNjR6TTIzMiAzODRjLTg4LjQgMC0xNjAtNzEuNi0xNjAtMTYwczcxLjYtMTYwIDE2MC0xNjAgMTYwIDcxLjYgMTYwIDE2MC03MS42IDE2MC0xNjAgMTYwem0wLTI4OGMtNzAuNyAwLTEyOCA1Ny4zLTEyOCAxMjhzNTcuMyAxMjggMTI4IDEyOCAxMjgtNTcuMyAxMjgtMTI4LTU3LjMtMTI4LTEyOC0xMjh6Ii8+PC9zdmc+" alt="Logo" width="16" height="16" />
+                    <h1>GRAY HAT - RETRO EDITION</h1>
+                </div>
+                <div class="window-controls">
+                    <button class="window-btn" title="Minimize">_</button>
+                    <button class="window-btn" title="Maximize">□</button>
+                    <button class="window-btn" title="Close" onclick="document.querySelector('.access-denied').style.display='block'">X</button>
+                </div>
             </div>
-            <select class="selector" id="content-selector">
-                <option value="tools">Gore</option>
-                <option value="exploits">Hentai</option>
-                <option value="malware">Viruz</option>
-                <option value="tutorials">Secrets</option>
-            </select>
-        </div>
+            <div class="window-content">
+                <select class="selector" id="content-selector">
+                    <option value="tools">Gore</option>
+                    <option value="exploits">Hentai</option>
+                    <option value="malware">Viruz</option>
+                    <option value="tutorials">Secrets</option>
+                </select>
 
-        <div class="content" id="content-area">
-            <!-- Content will be dynamically loaded here -->
-        </div>
+                <div class="content" id="content-area">
+                    <!-- Contenido se cargará aquí -->
+                </div>
 
-        <div class="footer">
-            © 2025 Black Mask. All rights reserved.
+                <div class="footer">
+                    © 2025 Black Mask. All rights reserved.<br />
+                    Best viewed with Internet Explorer 6.0 at 800x600 resolution
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Cursor Effect -->
+    <!-- Barra de tareas estilo Windows -->
+    <div class="taskbar">
+        <button class="start-btn">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjM2qefiJQAAAG1JREFUOE+dkMEJwDAMAy+Z/6Y5Q4/QI3QH6Q7SHSQ7SHaQ7CDZQbKDZAfJDpIdJDtIdpDsINlBsoNkB8kOkh0kO0h2kOwg2UGyg2QHyQ6SHSQ7SHaQ7CDZQbKDZAfJDpIdJDtIdpDsINlBsoPkD8kD+QJZ1RhyJQAAAABJRU5ErkJggg==" alt="Start" width="16" height="16" />
+            Start
+        </button>
+        <div class="taskbar-time" id="clock">4:25 PM</div>
+    </div>
+
+    <!-- Cursor animado antiguo -->
     <div class="cursor-effect" id="cursor-effect"></div>
 
-    <script>
+    <script type="text/javascript">
+        //<![CDATA[
         document.addEventListener('DOMContentLoaded', function() {
-            // Loading animation
-            const loadingProgress = document.querySelector('.loading-progress');
-            let width = 0;
-            const loadingInterval = setInterval(() => {
+            // Animación de carga estilo antiguo
+            var loadingProgress = document.querySelector('.loading-progress');
+            var width = 0;
+            var loadingInterval = setInterval(function() {
                 width += 1;
                 loadingProgress.style.width = width + '%';
                 
@@ -378,60 +551,79 @@
                     document.querySelector('.loading-screen').style.display = 'none';
                     document.querySelector('.verification-screen').style.display = 'flex';
                 }
-            }, 80); // 8 seconds total (80ms * 100)
+            }, 80);
 
-            // Verification code check
-            const confirmBtn = document.querySelector('.confirm-btn');
-            const codeInput = document.querySelector('.code-input');
-            const errorMessage = document.querySelector('.error-message');
-            const verificationScreen = document.querySelector('.verification-screen');
-            const dashboard = document.querySelector('.dashboard');
-            const accessDenied = document.querySelector('.access-denied');
+            // Verificación de código
+            var confirmBtn = document.querySelector('.confirm-btn');
+            var codeInput = document.querySelector('.code-input');
+            var errorMessage = document.querySelector('.error-message');
+            var verificationScreen = document.querySelector('.verification-screen');
+            var dashboard = document.querySelector('.dashboard');
+            var accessDenied = document.querySelector('.access-denied');
 
-            const validCodes = ['81621', '71766', '55161'];
+            var validCodes = ['81621', '71766', '55161'];
 
-            confirmBtn.addEventListener('click', function() {
-                const enteredCode = codeInput.value.trim();
+            confirmBtn.onclick = function() {
+                var enteredCode = codeInput.value.trim();
                 
                 if (validCodes.includes(enteredCode)) {
                     verificationScreen.style.display = 'none';
                     dashboard.style.display = 'block';
-                    createBloodDrips();
                     loadContent('tools');
+                    
+                    // Efecto de sonido antiguo (opcional)
+                    try {
+                        var sound = new Audio('https://www.myinstants.com/media/sounds/winxp.mp3');
+                        sound.volume = 0.3;
+                        sound.play();
+                    } catch(e) {
+                        console.log('Error playing sound:', e);
+                    }
                 } else {
-                    codeInput.classList.add('shake');
+                    codeInput.className += ' blink';
                     errorMessage.style.display = 'block';
-                    setTimeout(() => {
-                        codeInput.classList.remove('shake');
-                        accessDenied.style.display = 'flex';
-                        document.body.style.backgroundColor = '#fff';
+                    
+                    // Efecto de error
+                    setTimeout(function() {
+                        codeInput.className = 'code-input';
+                        accessDenied.style.display = 'block';
+                        document.body.style.backgroundColor = '#00007F';
+                        
+                        // Sonido de error BSOD
+                        try {
+                            var errorSound = new Audio('https://www.myinstants.com/media/sounds/bsod.mp3');
+                            errorSound.volume = 0.5;
+                            errorSound.play();
+                        } catch(e) {
+                            console.log('Error playing sound:', e);
+                        }
                     }, 1000);
                 }
-            });
+            };
 
-            // Allow pressing Enter to confirm
-            codeInput.addEventListener('keypress', function(e) {
+            // Permitir Enter para confirmar
+            codeInput.onkeypress = function(e) {
                 if (e.key === 'Enter') {
-                    confirmBtn.click();
+                    confirmBtn.onclick();
                 }
-            });
+            };
 
-            // Content selector
-            const contentSelector = document.getElementById('content-selector');
-            const contentArea = document.getElementById('content-area');
+            // Selector de contenido
+            var contentSelector = document.getElementById('content-selector');
+            var contentArea = document.getElementById('content-area');
 
-            contentSelector.addEventListener('change', function() {
+            contentSelector.onchange = function() {
                 loadContent(this.value);
-            });
+            };
 
-            // Load content based on selection
+            // Cargar contenido basado en selección
             function loadContent(type) {
-                let content = '';
+                var content = '';
                 
                 if (type === 'tools') {
                     content = `
                         <div class="card">
-                            <img src="https://i.ibb.co/Lzv3ytmT/41c60ab9df5c.jpg" alt="Tool 1" class="card-img">
+                            <img src="https://i.ibb.co/Lzv3ytmT/41c60ab9df5c.jpg" alt="Tool 1" class="card-img" />
                             <div class="card-content">
                                 <h3 class="card-title">Wormswoods</h3>
                                 <p class="card-desc">A website for gore.</p>
@@ -439,7 +631,7 @@
                             </div>
                         </div>
                         <div class="card">
-                            <img src="https://goregrish.com/img_store/logo.png" alt="Tool 1" class="card-img">
+                            <img src="https://goregrish.com/img_store/logo.png" alt="Tool 1" class="card-img" />
                             <div class="card-content">
                                 <h3 class="card-title">Goregrish</h3>
                                 <p class="card-desc">A website for gore.</p>
@@ -447,15 +639,15 @@
                             </div>
                         </div>
                         <div class="card">
-                            <img src="https://kaotic.com/templates/mainv2_updates/static/images/logo140.png" alt="Tool 1" class="card-img">
+                            <img src="https://kaotic.com/templates/mainv2_updates/static/images/logo140.png" alt="Tool 1" class="card-img" />
                             <div class="card-content">
                                 <h3 class="card-title">Kaotic</h3>
                                 <p class="card-desc">A website for gore.</p>
                                 <button class="card-btn" onclick="window.open('https://kaotic.com', '_blank')">View</button>
                             </div>
                         </div>
-                         <div class="card">
-                            <img src="https://theync.com/templates/theync/images/logo.png" alt="Tool 1" class="card-img">
+                        <div class="card">
+                            <img src="https://theync.com/templates/theync/images/logo.png" alt="Tool 1" class="card-img" />
                             <div class="card-content">
                                 <h3 class="card-title">theInc</h3>
                                 <p class="card-desc">A website for gore.</p>
@@ -466,14 +658,15 @@
                 } else if (type === 'exploits') {
                     content = `
                         <div class="card">
-                            <img src="https://storage.teleservices.io/Teleservice_813da7bc1aae.jpg">
+                            <img src="https://storage.teleservices.io/Teleservice_813da7bc1aae.jpg" alt="Exploit 1" class="card-img" />
+                            <div class="card-content">
                                 <h3 class="card-title">Biscochu 02</h3>
                                 <p class="card-desc">Penis.</p>
                                 <button class="card-btn" onclick="window.open('https://yomboxggt.neocities.org/Content/Bishoku_02', '_blank')">View</button>
                             </div>
                         </div>
                         <div class="card">
-                            <img src="https://storage.teleservices.io/Teleservice_361d1bfd1abf.avif" alt="Exploit 2" class="card-img">
+                            <img src="https://storage.teleservices.io/Teleservice_361d1bfd1abf.avif" alt="Exploit 2" class="card-img" />
                             <div class="card-content">
                                 <h3 class="card-title">Inmoral Routine</h3>
                                 <p class="card-desc">Yeah Baby.</p>
@@ -483,94 +676,78 @@
                     `;
                 } else if (type === 'malware') {
                     content = `
-                    <h3 class="card-title">This  section is not available</h3>
+                        <div class="card">
+                            <h3 class="card-title">This section is not available</h3>
+                            <p class="card-desc">Error 403 - Forbidden</p>
+                            <img src="https://web.archive.org/web/20091027005830/http://geocities.com/psxbox1/error.jpg" alt="Error" />
+                        </div>
                     `;
                 } else if (type === 'tutorials') {
                     content = `
-                        <img src="https://storage.teleservices.io/Teleservice_751bbcdd9354.gif" alt="image">
+                        <div class="card">
+                            <img src="https://storage.teleservices.io/Teleservice_751bbcdd9354.gif" alt="Secret" class="card-img" />
+                            <div class="card-content">
+                                <h3 class="card-title">Top Secret</h3>
+                                <p class="card-desc">Classified information</p>
+                                <marquee behavior="scroll" direction="left" scrollamount="5">UNDER CONSTRUCTION - COME BACK LATER</marquee>
+                            </div>
+                        </div>
                     `;
                 }
 
                 contentArea.innerHTML = content;
-            }
-
-            // Create blood drip effects
-            function createBloodDrips() {
-                const colors = ['#ff0000', '#880000', '#cc0000'];
                 
-                for (let i = 0; i < 15; i++) {
-                    const drip = document.createElement('div');
-                    drip.className = 'blood-drip';
-                    
-                    // Random properties
-                    const left = Math.random() * 100;
-                    const height = 50 + Math.random() * 150;
-                    const opacity = 0.2 + Math.random() * 0.8;
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    drip.style.left = `${left}%`;
-                    drip.style.height = `${height}px`;
-                    drip.style.opacity = opacity;
-                    drip.style.backgroundColor = color;
-                    
-                    // Animation
-                    drip.style.animation = `drip ${2 + Math.random() * 3}s infinite`;
-                    
-                    document.body.appendChild(drip);
+                // Añadir efecto de sonido al cambiar pestaña
+                try {
+                    var clickSound = new Audio('https://www.myinstants.com/media/sounds/msn-sound-effect.mp3');
+                    clickSound.volume = 0.2;
+                    clickSound.play();
+                } catch(e) {
+                    console.log('Error playing sound:', e);
                 }
             }
 
-            // Custom cursor effect
-            const cursor = document.getElementById('cursor-effect');
-            document.addEventListener('mousemove', (e) => {
+            // Efecto de cursor antiguo
+            var cursor = document.getElementById('cursor-effect');
+            document.onmousemove = function(e) {
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
-                
-                // Trail effect
-                if (Math.random() > 0.7) {
-                    const trail = document.createElement('div');
-                    trail.className = 'cursor-effect';
-                    trail.style.left = e.clientX + 'px';
-                    trail.style.top = e.clientY + 'px';
-                    trail.style.transform = `translate(-50%, -50%) scale(${Math.random() * 0.5 + 0.5})`;
-                    document.body.appendChild(trail);
-                    
-                    // Fade out and remove
-                    setTimeout(() => {
-                        trail.style.opacity = '0';
-                        trail.style.transform = `translate(-50%, -50%) scale(1.5)`;
-                        setTimeout(() => {
-                            trail.remove();
-                        }, 500);
-                    }, 300);
-                }
-            });
+            };
 
-            // Hover effects
-            document.addEventListener('mouseover', (e) => {
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(2)';
-                    cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
-                }
-            });
-
-            document.addEventListener('mouseout', (e) => {
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
-                }
-            });
-
-            // Add blood drip animation to CSS
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes drip {
-                    0% { transform: translateY(-100%); }
-                    100% { transform: translateY(100vh); }
-                }
-            `;
-            document.head.appendChild(style);
+            // Actualizar reloj en la barra de tareas
+            function updateClock() {
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var timeString = hours + ':' + minutes + ' ' + ampm;
+                document.getElementById('clock').textContent = timeString;
+            }
+            
+            updateClock();
+            setInterval(updateClock, 60000);
         });
+        //]]>
     </script>
+    
+    <!-- Contador de visitas estilo antiguo -->
+    <div style="position: fixed; bottom: 40px; right: 10px; font-size: 10px; color: #FFFFFF; background-color: #000080; padding: 3px 6px; border: 2px solid #C0C0C0;">
+        <script type="text/javascript">
+        //<![CDATA[
+        var visits = Math.floor(Math.random() * 9999) + 1000;
+        document.write('Visitors: ' + visits + ' since 01/01/2012');
+        //]]>
+        </script>
+        <noscript>Visitors: 1337 since 01/01/2012</noscript>
+        <br />
+        <img src="https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/counter/0.gif" />
+        <img src="https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/counter/1.gif" />
+        <img src="https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/counter/3.gif" />
+        <img src="https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/counter/3.gif" />
+        <img src="https://web.archive.org/web/20120202093142im_/http://s.4cdn.org/image/counter/7.gif" />
+    </div>
 </body>
 </html>
