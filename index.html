@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Hat</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            overflow-x: hidden;
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            z-index: 1000;
+        }
+
+        .loading-screen img {
+            max-width: 80%;
+            max-height: 70%;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .loading-bar {
+            width: 80%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background-color: #ff0000;
+            border-radius: 5px;
+        }
+
+        /* Code Verification */
+        .verification-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            z-index: 999;
+        }
+
+        .verification-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .verification-form h2 {
+            color: #fff;
+            font-size: 24px;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .code-input {
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #ff0000;
+            background-color: #111;
+            color: #fff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .confirm-btn {
+            padding: 12px 30px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .confirm-btn:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 20px;
+            background-color: #000;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ff0000;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .title h1 {
+            font-size: 36px;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .title img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 5px #ff0000);
+        }
+
+        .selector {
+            padding: 10px 15px;
+            background-color: #111;
+            color: #fff;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s, box-shadow 0.5s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: perspective(1000px) rotateY(10deg);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0));
+            pointer-events: none;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ff0000;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ff0000;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .card-btn {
+            padding: 8px 20px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .card-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid #ff0000;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        /* Blood Drips */
+        .blood-drip {
+            position: absolute;
+            width: 2px;
+            background-color: #ff0000;
+            z-index: -1;
+        }
+
+        /* Cursor Effect */
+        .cursor-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 0, 0, 0.5);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: screen;
+        }
+
+        /* Access Denied */
+        .access-denied {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .access-denied h1 {
+            color: #ff0000;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .access-denied p {
+            color: #000;
+            font-size: 24px;
+            text-align: center;
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img src="https://storage.teleservices.io/Teleservice_e44718d72e8e.png" alt="Loading Image">
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Verification Screen -->
+    <div class="verification-screen">
+        <div class="verification-form">
+            <h2>ENTER YOUR CONFIRMATION CODE</h2>
+            <input type="text" class="code-input" placeholder="XXXXX" maxlength="5">
+            <button class="confirm-btn">CONFIRM</button>
+            <p class="error-message">ACCESS DENIED. YOU ARE NOT AUTHORIZED.</p>
+        </div>
+    </div>
+
+    <!-- Access Denied Screen -->
+    <div class="access-denied">
+        <h1>ACCESS DENIED</h1>
+        <p>You are not authorized to access this content. Your attempt has been logged.</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <div class="header">
+            <div class="title">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmYwMDAwIiBkPSJNNDQ4IDBINjRDMjguNyAwIDAgMjguNyAwIDY0djM4NGMwIDM1LjMgMjguNyA2NCA2NCA2NGgzODRjMzUuMyAwIDY0LTI4LjcgNjQtNjRWNjRjMC0zNS4zLTI4LjctNjQtNjQtNjR6TTIzMiAzODRjLTg4LjQgMC0xNjAtNzEuNi0xNjAtMTYwczcxLjYtMTYwIDE2MC0xNjAgMTYwIDcxLjYgMTYwIDE2MC03MS42IDE2MC0xNjAgMTYwem0wLTI4OGMtNzAuNyAwLTEyOCA1Ny4zLTEyOCAxMjhzNTcuMyAxMjggMTI4IDEyOCAxMjgtNTcuMyAxMjgtMTI4LTU3LjMtMTI4LTEyOC0xMjh6Ii8+PC9zdmc+" alt="Logo">
+                <h1>GRAY HAT</h1>
+            </div>
+            <select class="selector" id="content-selector">
+                <option value="tools">Hacking Tools</option>
+                <option value="exploits">Exploits</option>
+                <option value="malware">Malware</option>
+                <option value="tutorials">Tutorials</option>
+            </select>
+        </div>
+
+        <div class="content" id="content-area">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+
+        <div class="footer">
+            © 2025 Black Mask. All rights reserved.
+        </div>
+    </div>
+
+    <!-- Cursor Effect -->
+    <div class="cursor-effect" id="cursor-effect"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Loading animation
+            const loadingProgress = document.querySelector('.loading-progress');
+            let width = 0;
+            const loadingInterval = setInterval(() => {
+                width += 1;
+                loadingProgress.style.width = width + '%';
+                
+                if (width >= 100) {
+                    clearInterval(loadingInterval);
+                    document.querySelector('.loading-screen').style.display = 'none';
+                    document.querySelector('.verification-screen').style.display = 'flex';
+                }
+            }, 80); // 8 seconds total (80ms * 100)
+
+            // Verification code check
+            const confirmBtn = document.querySelector('.confirm-btn');
+            const codeInput = document.querySelector('.code-input');
+            const errorMessage = document.querySelector('.error-message');
+            const verificationScreen = document.querySelector('.verification-screen');
+            const dashboard = document.querySelector('.dashboard');
+            const accessDenied = document.querySelector('.access-denied');
+
+            const validCodes = ['81621', '71766', '55161'];
+
+            confirmBtn.addEventListener('click', function() {
+                const enteredCode = codeInput.value.trim();
+                
+                if (validCodes.includes(enteredCode)) {
+                    verificationScreen.style.display = 'none';
+                    dashboard.style.display = 'block';
+                    createBloodDrips();
+                    loadContent('tools');
+                } else {
+                    codeInput.classList.add('shake');
+                    errorMessage.style.display = 'block';
+                    setTimeout(() => {
+                        codeInput.classList.remove('shake');
+                        accessDenied.style.display = 'flex';
+                        document.body.style.backgroundColor = '#fff';
+                    }, 1000);
+                }
+            });
+
+            // Allow pressing Enter to confirm
+            codeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmBtn.click();
+                }
+            });
+
+            // Content selector
+            const contentSelector = document.getElementById('content-selector');
+            const contentArea = document.getElementById('content-area');
+
+            contentSelector.addEventListener('change', function() {
+                loadContent(this.value);
+            });
+
+            // Load content based on selection
+            function loadContent(type) {
+                let content = '';
+                
+                if (type === 'tools') {
+                    content = `
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tool 1" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">NETWORK SCANNER</h3>
+                                <p class="card-desc">Advanced network scanning tool with stealth capabilities. Bypass firewalls and detect vulnerabilities.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/tool1', '_blank')">DOWNLOAD</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tool 2" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">PASSWORD CRACKER</h3>
+                                <p class="card-desc">Brute-force and dictionary attack tool with GPU acceleration. Supports all common hash types.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/tool2', '_blank')">DOWNLOAD</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tool 3" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">EXPLOIT FRAMEWORK</h3>
+                                <p class="card-desc">Modular framework for developing and executing exploits against known vulnerabilities.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/tool3', '_blank')">DOWNLOAD</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (type === 'exploits') {
+                    content = `
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1581092921461-39b2f2f8a1e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Exploit 1" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">WEB SERVER EXPLOIT</h3>
+                                <p class="card-desc">Remote code execution vulnerability in popular web servers. Works on unpatched systems.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/exploit1', '_blank')">GET EXPLOIT</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Exploit 2" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">PRIVILEGE ESCALATION</h3>
+                                <p class="card-desc">Local privilege escalation for Linux systems. Root access in minutes.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/exploit2', '_blank')">GET EXPLOIT</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (type === 'malware') {
+                    content = `
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Malware 1" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">RAT TOOLKIT</h3>
+                                <p class="card-desc">Remote Administration Toolkit with persistence and evasion features.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/malware1', '_blank')">DOWNLOAD</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1581093057305-5e69b897c7f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Malware 2" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">CRYPTO LOCKER</h3>
+                                <p class="card-desc">Advanced ransomware with AES-256 encryption. Includes builder and C2 panel.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/malware2', '_blank')">DOWNLOAD</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (type === 'tutorials') {
+                    content = `
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tutorial 1" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">PENETRATION TESTING</h3>
+                                <p class="card-desc">Complete guide to professional penetration testing methodologies and tools.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/tutorial1', '_blank')">VIEW TUTORIAL</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tutorial 2" class="card-img">
+                            <div class="card-content">
+                                <h3 class="card-title">SOCIAL ENGINEERING</h3>
+                                <p class="card-desc">Master the art of human hacking with these advanced techniques.</p>
+                                <button class="card-btn" onclick="window.open('https://example.com/tutorial2', '_blank')">VIEW TUTORIAL</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                contentArea.innerHTML = content;
+            }
+
+            // Create blood drip effects
+            function createBloodDrips() {
+                const colors = ['#ff0000', '#880000', '#cc0000'];
+                
+                for (let i = 0; i < 15; i++) {
+                    const drip = document.createElement('div');
+                    drip.className = 'blood-drip';
+                    
+                    // Random properties
+                    const left = Math.random() * 100;
+                    const height = 50 + Math.random() * 150;
+                    const opacity = 0.2 + Math.random() * 0.8;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    drip.style.left = `${left}%`;
+                    drip.style.height = `${height}px`;
+                    drip.style.opacity = opacity;
+                    drip.style.backgroundColor = color;
+                    
+                    // Animation
+                    drip.style.animation = `drip ${2 + Math.random() * 3}s infinite`;
+                    
+                    document.body.appendChild(drip);
+                }
+            }
+
+            // Custom cursor effect
+            const cursor = document.getElementById('cursor-effect');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                
+                // Trail effect
+                if (Math.random() > 0.7) {
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-effect';
+                    trail.style.left = e.clientX + 'px';
+                    trail.style.top = e.clientY + 'px';
+                    trail.style.transform = `translate(-50%, -50%) scale(${Math.random() * 0.5 + 0.5})`;
+                    document.body.appendChild(trail);
+                    
+                    // Fade out and remove
+                    setTimeout(() => {
+                        trail.style.opacity = '0';
+                        trail.style.transform = `translate(-50%, -50%) scale(1.5)`;
+                        setTimeout(() => {
+                            trail.remove();
+                        }, 500);
+                    }, 300);
+                }
+            });
+
+            // Hover effects
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                    cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+                }
+            });
+
+            // Add blood drip animation to CSS
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes drip {
+                    0% { transform: translateY(-100%); }
+                    100% { transform: translateY(100vh); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
